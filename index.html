@@ -5,264 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vera Stockmayer</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        :root { --accent: #527d8c; --muted: #666; --line: #ccc; }
+        * { box-sizing: border-box; margin: 0; }
+        body { font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.6; color: #222; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        /* Header: name + navigation */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 35px; padding: 12px 50px; background: rgba(255, 255, 255, .92); border-bottom: 1px solid #ddd; }
+        header h1 { font-size: 2rem; line-height: 1.2; letter-spacing: .03em; }
+        nav { display: flex; gap: 35px; }
+        nav a { color: inherit; text-decoration: none; font-size: .95rem; letter-spacing: .05em; }
+        nav a:hover { color: var(--accent); }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            color: #222;
-            background: #f5f5f2;
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 35px;
-            background: rgba(255, 255, 255, 0.92);
-            z-index: 1000;
-            border-bottom: 1px solid #ddd;
-        }
-
-        nav a {
-            color: #222;
-            text-decoration: none;
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-        }
-
-        nav a:hover {
-            color: #527d8c;
-        }
+        /* Shared */
+        section { padding: 110px 10%; }
+        .section-title { margin-bottom: 50px; font-size: 2.5rem; font-weight: 300; }
+        .bio-container, .research-container { max-width: 1100px; margin: auto; }
+        .photo-placeholder { display: flex; align-items: center; justify-content: center; height: 300px; background: #d9d9d5; color: #777; }
+        .bio img, .photo-grid img { display: block; width: 100%; height: 300px; object-fit: cover; }
 
         /* Hero */
-        .hero {
-            height: 100vh;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: #dce8ea;
-            position: relative;
-        }
-        
-        .hero h1 {
-            position: absolute;
-            top: 7px;
-            left: 50px;
-            z-index: 1001;
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            margin: 0;
-        }
-        
-        .hero-content {
-            padding: 40px;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 650px;
-            margin: auto;
-            color: #465b62;
-        }
-
-        /* General sections */
-        section {
-            padding: 110px 10%;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 50px;
-        }
+        .hero { display: flex; align-items: center; justify-content: center; height: 100vh; min-height: 600px; text-align: center; background: #dce8ea; }
+        .hero p { max-width: 650px; font-size: 1.25rem; color: #465b62; }
 
         /* Bio */
-        .bio {
-            background: white;
-        }
-
-        .bio-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 70px;
-            align-items: center;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .bio-text p {
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        .photo-placeholder {
-            height: 450px;
-            background: #d9d9d5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            font-size: 1rem;
-        }
+        .bio-container { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+        .bio-text p { margin-bottom: 20px; color: #555; }
+        .bio .photo-placeholder, .bio img { height: 450px; }
 
         /* Research */
-        .research {
-            background: #f5f5f2;
-        }
-
-        .research-container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .research-category {
-            margin-bottom: 70px;
-        }
-
-        .research-category h3 {
-            font-size: 1.7rem;
-            font-weight: 400;
-            margin-bottom: 30px;
-            color: #527d8c;
-        }
-
-        .research-item {
-            border-top: 1px solid #ccc;
-            padding: 25px 0;
-        }
-
-        .research-item:last-child {
-            border-bottom: 1px solid #ccc;
-        }
-
-        .research-item h4 {
-            font-size: 1.25rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .research-item p {
-            color: #666;
-            max-width: 800px;
-        }
+        .research { background: #f5f5f2; }
+        .research-category { margin-bottom: 70px; }
+        .research-category h3 { margin-bottom: 30px; font-size: 1.7rem; font-weight: 400; color: var(--accent); }
+        .research-item { padding: 25px 0; border-top: 1px solid var(--line); }
+        .research-item:last-child { border-bottom: 1px solid var(--line); }
+        .research-item h4 { margin-bottom: 8px; font-size: 1.25rem; font-weight: 500; }
+        .research-item p { max-width: 800px; color: var(--muted); }
 
         /* Photography */
-        .photography {
-            background: white;
-        }
+        .photo-intro { max-width: 750px; margin-bottom: 50px; color: var(--muted); }
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
 
-        .photo-intro {
-            max-width: 750px;
-            margin-bottom: 50px;
-            color: #666;
-        }
+        footer { padding: 50px 10%; background: #26383e; color: #fff; text-align: center; }
 
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .photo-grid .photo-placeholder {
-            height: 300px;
-        }
-
-        /* Footer */
-        footer {
-            padding: 50px 10%;
-            background: #26383e;
-            color: white;
-            text-align: center;
-        }
-
-        /* Mobile */
+        /* Phones */
         @media (max-width: 700px) {
-            nav {
-                padding: 15px 20px;
-                gap: 15px;
-            }
-
-            nav a {
-                font-size: 0.8rem;
-            }
-
-            section {
-                padding: 80px 7%;
-            }
-
-            .bio-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .photo-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 3.5rem;
-            }
+            header { padding: 12px 20px; }
+            header h1 { font-size: 1.5rem; }
+            nav { gap: 15px; }
+            nav a { font-size: .8rem; }
+            section { padding: 80px 7%; }
+            .bio-container, .photo-grid { grid-template-columns: 1fr; }
+            .bio-container { gap: 40px; }
         }
     </style>
 </head>
 
 <body>
 
-    <nav>
-        <a href="#bio">BIO</a>
-        <a href="#research">RESEARCH</a>
-        <a href="#photography">PHOTOGRAPHY</a>
-    </nav>
+    <header>
+        <h1>Vera Stockmayer</h1>
+        <nav>
+            <a href="#bio">BIO</a>
+            <a href="#research">RESEARCH</a>
+            <a href="#photography">PHOTOGRAPHY</a>
+        </nav>
+    </header>
 
     <section class="hero">
-        <div class="hero-content">
-            <h1>Vera Stockmayer</h1>
-            <p>
-                Welcome! 
-                
-                This is where I share some of my work through the lens of an oceanography PhD student and my camera.
-            </p>
-        </div>
+        <p>Welcome! This is where I share some of my work through the lens of an oceanography PhD student and my camera.</p>
     </section>
 
     <section id="bio" class="bio">
         <div class="bio-container">
             <div class="bio-text">
                 <h2 class="section-title">BIO</h2>
-                <p>
-                    Hi! My name is Vera and I am an oceanography PhD student at University of Hawaiʻi at Mānoa interested in understanding
-                    the physical processes of climate variability in the tropical Pacific. ... current decadal, past ...
-                </p>
-                <p>
-                    My research combines numerical modeling,
-                    observations, ... to investigate ...
-                </p>
-                <p>
-                    Outside of research, I use photography as another way of
-                    observing the world around me, looking for patterns, special angles and interesting light.
-                </p>
+                <p>Hi! My name is Vera and I am an oceanography PhD student at University of Hawaiʻi at Mānoa interested in understanding
+                    the physical processes of climate variability in the tropical Pacific. ... current decadal, past ...</p>
+                <p>My research combines numerical modeling, observations, ... to investigate ...</p>
+                <p>Outside of research, I use photography as another way of observing the world around me, looking for patterns, special angles and interesting light.</p>
             </div>
-
-            <div class="photo-placeholder">
-                PHOTO OF VERA
-            </div>
+            <div class="photo-placeholder">PHOTO OF VERA</div>
         </div>
     </section>
 
@@ -272,41 +94,25 @@
 
             <div class="research-category">
                 <h3>Current</h3>
-
                 <div class="research-item">
                     <h4>Current Research Project</h4>
-                    <p>
-                        Description of your current research, questions,
-                        methods, and what you are hoping to understand.
-                    </p>
+                    <p>Description of your current research, questions, methods, and what you are hoping to understand.</p>
                 </div>
-
                 <div class="research-item">
-                    <h4>Ocean & Climate Variability</h4>
-                    <p>
-                        Description of another current research topic,
-                        including relevant modeling, observations, or
-                        climate processes.
-                    </p>
+                    <h4>Ocean &amp; Climate Variability</h4>
+                    <p>Description of another current research topic, including relevant modeling, observations, or climate processes.</p>
                 </div>
             </div>
 
             <div class="research-category">
                 <h3>Past</h3>
-
                 <div class="research-item">
                     <h4>Previous Research Project</h4>
-                    <p>
-                        Description of a previous project, thesis, paper,
-                        field campaign, or other research experience.
-                    </p>
+                    <p>Description of a previous project, thesis, paper, field campaign, or other research experience.</p>
                 </div>
-
                 <div class="research-item">
                     <h4>Previous Project</h4>
-                    <p>
-                        Add another past research project here.
-                    </p>
+                    <p>Add another past research project here.</p>
                 </div>
             </div>
         </div>
@@ -314,12 +120,7 @@
 
     <section id="photography" class="photography">
         <h2 class="section-title">PHOTOGRAPHY</h2>
-
-        <p class="photo-intro">
-            Photography is another way I explore and document the environments
-            that I study. This space will eventually showcase selected work.
-        </p>
-
+        <p class="photo-intro">Photography is another way I explore and document the environments that I study. This space will eventually showcase selected work.</p>
         <div class="photo-grid">
             <div class="photo-placeholder">PHOTO</div>
             <div class="photo-placeholder">PHOTO</div>
